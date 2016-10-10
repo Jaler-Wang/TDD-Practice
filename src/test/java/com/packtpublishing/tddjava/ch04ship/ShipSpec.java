@@ -20,22 +20,18 @@ public class ShipSpec {
         Assert.assertEquals(location, ship.getCurrentLocation());
     }
 
-    public void Given11NWhenForwardThen01N(){
+    public void whenMoveForwardThenForward(){
+        Location expectedLocation = location.copy();
+        expectedLocation.forward();
         ship.forward();
-        location = ship.getCurrentLocation();
 
-        Assert.assertTrue(new Location(new Point(1, 100), Direction.NORTH).equals(location));
+        Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
     }
 
-    public void Given11SWhenForwardThen10S(){
-        location.setDirection(Direction.SOUTH);
-        ship.setCurrentLocation(location);
-        ship.forward();
-        Assert.assertTrue(new Location(new Point(1, 2), Direction.SOUTH).equals(location));
-
-    }
-    public void Given11NWhenBackwardThen12N(){
+    public void whenMoveBackwardThenBackWard(){
+        Location expectedLocation = location.copy();
+        expectedLocation.backward();
         ship.backward();
-        Assert.assertEquals(new Location(new Point(1, 2), Direction.NORTH), ship.getCurrentLocation());
+        Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
     }
 }
