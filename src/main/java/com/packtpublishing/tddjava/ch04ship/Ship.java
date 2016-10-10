@@ -36,4 +36,28 @@ public class Ship {
     public void turnRight() {
         currentLocation.turnRight();
     }
+
+    public void executeCommand(String command) {
+        char[] commands = command.toLowerCase().toCharArray();
+        for(int i = 0; i < commands.length; i++){
+            executeCommand(commands[i]);
+        }
+
+    }
+
+    private void executeCommand(char command) {
+        switch(command){
+            case 'f':
+                forward();
+                break;
+            case 'b':
+                backward();
+                break;
+            case 'l':
+                turnLeft();
+                break;
+            case 'r':
+                turnRight();
+        }
+    }
 }

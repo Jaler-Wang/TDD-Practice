@@ -42,10 +42,46 @@ public class ShipSpec {
         Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
     }
 
-    public void whenTurnRigthThenTurnRigth(){
+    public void whenTurnRightThenTurnRight(){
         Location expectedLocation = location.copy();
         expectedLocation.turnRight();
         ship.turnRight();
         Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
+    }
+
+    public void whenExecuteCommandFThenForward(){
+        Ship expectedShip = new Ship(location.copy());
+        expectedShip.forward();
+        ship.executeCommand("f");
+        Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
+    }
+
+    public void whenExecuteCommandBThenBackward(){
+        Ship expectedShip = new Ship(location.copy());
+        expectedShip.backward();
+        ship.executeCommand("b");
+        Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
+    }
+
+    public void whenExecuteCommandLThenTurnLeft(){
+        Ship expectShip = new Ship(location.copy());
+        expectShip.turnLeft();
+        ship.executeCommand("l");
+        Assert.assertEquals(expectShip.getCurrentLocation(), ship.getCurrentLocation());
+    }
+
+    public void whenExecuteCommandRThenTurnRight(){
+        Ship expectedShip = new Ship(location.copy());
+        expectedShip.turnRight();
+        ship.executeCommand("r");
+        Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
+    }
+
+    public void whenExecuteCommandFLThenForwardLeft(){
+        Ship expectedShip = new Ship(location.copy());
+        expectedShip.forward();
+        expectedShip.turnLeft();
+        ship.executeCommand("fl");
+        Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
     }
 }
