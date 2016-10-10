@@ -28,4 +28,12 @@ public class Ship {
     public void backward() {
         currentLocation.backward();
     }
+
+    public void turnLeft() {
+        currentLocation.turnLeft();
+    }
+
+    public void turnRight() {
+        currentLocation.turnRight();
+    }
 }

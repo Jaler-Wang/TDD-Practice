@@ -34,4 +34,18 @@ public class ShipSpec {
         ship.backward();
         Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
     }
+
+    public void whenTurnLeftThenTurnLeft(){
+        Location expectedLocation = location.copy();
+        expectedLocation.turnLeft();
+        ship.turnLeft();
+        Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
+    }
+
+    public void whenTurnRigthThenTurnRigth(){
+        Location expectedLocation = location.copy();
+        expectedLocation.turnRight();
+        ship.turnRight();
+        Assert.assertEquals(expectedLocation, ship.getCurrentLocation());
+    }
 }
