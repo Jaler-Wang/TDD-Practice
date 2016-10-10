@@ -19,4 +19,13 @@ public class Ship {
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
     }
+
+    public void forward() {
+        currentLocation.forward();
+    }
+
+
+    public void backward() {
+        currentLocation.backward();
+    }
 }
