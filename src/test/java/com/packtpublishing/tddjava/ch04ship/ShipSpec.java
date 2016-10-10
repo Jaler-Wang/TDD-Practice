@@ -9,11 +9,16 @@ import static org.testng.Assert.*;
 public class ShipSpec {
     private Ship ship = null;
     private Location location = null;
-
+    private Planet planet = null;
+    private Ship expectedShip = null;
     @BeforeMethod
     public void beforeTest(){
-        location= new Location(new Point(1, 1), Direction.NORTH);
-        ship = new Ship(location);
+        Point max = new Point(50, 50);
+        planet = new Planet(max);
+
+        location= new Location(new Point(20, 20), Direction.NORTH);
+        ship = new Ship(location, planet);
+        expectedShip = new Ship(location.copy(), planet);
     }
 
     public void WhenInstantiatedThenLocationIsSet(){
@@ -50,38 +55,52 @@ public class ShipSpec {
     }
 
     public void whenExecuteCommandFThenForward(){
-        Ship expectedShip = new Ship(location.copy());
         expectedShip.forward();
         ship.executeCommand("f");
         Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
     }
 
     public void whenExecuteCommandBThenBackward(){
-        Ship expectedShip = new Ship(location.copy());
         expectedShip.backward();
         ship.executeCommand("b");
         Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
     }
 
     public void whenExecuteCommandLThenTurnLeft(){
-        Ship expectShip = new Ship(location.copy());
-        expectShip.turnLeft();
+        expectedShip.turnLeft();
         ship.executeCommand("l");
-        Assert.assertEquals(expectShip.getCurrentLocation(), ship.getCurrentLocation());
+        Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
     }
 
     public void whenExecuteCommandRThenTurnRight(){
-        Ship expectedShip = new Ship(location.copy());
         expectedShip.turnRight();
         ship.executeCommand("r");
         Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
     }
 
     public void whenExecuteCommandFLThenForwardLeft(){
-        Ship expectedShip = new Ship(location.copy());
         expectedShip.forward();
         expectedShip.turnLeft();
         ship.executeCommand("fl");
         Assert.assertEquals(expectedShip.getCurrentLocation(), ship.getCurrentLocation());
+    }
+
+    public void whenInstantiatedThenPlanetIsStored(){
+
+        Assert.assertEquals(planet, ship.getPlanet());
+    }
+
+    public void givenLocationOnEastBoundaryWhenMoveEastThenPassBoundary(){
+        location.setDirection(Direction.EAST);
+        location.getPoint().setX(planet.getMax().getX());
+        ship.executeCommand("f");
+        Assert.assertEquals(location.getX(), 1);
+    }
+
+    public void givenLocationOnWestBoundaryWhenMoveWestThenPassBoundary(){
+        location.setDirection(Direction.EAST);
+        location.getPoint().setX(1);
+        ship.executeCommand("b");
+        Assert.assertEquals(location.getX(), planet.getMax().getX());
     }
 }
