@@ -3,6 +3,9 @@ package com.packtpublishing.tddjava.ch04ship;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.testng.Assert.*;
 
 @Test
@@ -11,10 +14,13 @@ public class ShipSpec {
     private Location location = null;
     private Planet planet = null;
     private Ship expectedShip = null;
+    private List<Point>  obstacles = null;
     @BeforeMethod
     public void beforeTest(){
         Point max = new Point(50, 50);
-        planet = new Planet(max);
+        obstacles = new ArrayList<>();
+        obstacles.add(new Point(12, 12));
+        planet = new Planet(max, obstacles);
 
         location= new Location(new Point(20, 20), Direction.NORTH);
         ship = new Ship(location, planet);
@@ -102,5 +108,31 @@ public class ShipSpec {
         location.getPoint().setX(1);
         ship.executeCommand("b");
         Assert.assertEquals(location.getX(), planet.getMax().getX());
+    }
+
+    public void whenInstantiatedThenObstacleIsStored(){
+        Assert.assertEquals(ship.getPlanet().getObstacles(), obstacles);
+    }
+
+    public void givenLocationOnWestOfObstacleWhenMoveForwardThenMeetObstacle(){
+        location.setDirection(Direction.EAST);
+        location.getPoint().setX(11);
+        location.getPoint().setY(12);
+        Assert.assertEquals("X", ship.executeCommand("f"));
+    }
+
+    public void givenLocationOnWestOfObstacleWhenMoveBackwardThenMeetObstacle(){
+        location.setDirection(Direction.EAST);
+        location.getPoint().setX(13);
+        location.getPoint().setY(12);
+        Assert.assertEquals("X", ship.executeCommand("b"));
+    }
+
+    public void givenLocationFarAwayObstacleWhenForwardThenNotMeetObstacle(){
+        Assert.assertEquals("O", ship.executeCommand("f"));
+    }
+
+    public void givenLocationFarAwayObstacleWhenBackwardThenNotMeetObstacle(){
+        Assert.assertEquals("O", ship.executeCommand("b"));
     }
 }
