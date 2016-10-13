@@ -1,4 +1,4 @@
-package com.packtpublishing.tddjava.ch04ship;
+package case1.ship;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.packtpublishing.tddjava.ch04ship;
+package case1.ship;
 
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
