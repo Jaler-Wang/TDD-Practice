@@ -7,6 +7,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
+import static org.hamcrest.Matchers.containsString;
+
 /**
  * Created by U0148394 on 10/13/2016.
  */
@@ -14,10 +20,11 @@ public class BoardTest {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
     private Board board = null;
-
+    private OutputStream outputStream = null;
     @Before
     public void init(){
-        board = new Board();
+        outputStream = new ByteArrayOutputStream();
+        board = new Board(new PrintStream(outputStream));
     }
 
     @Test
@@ -73,7 +80,22 @@ public class BoardTest {
 
     @Test
     public void whenSecondPlayerPlaysThenDiscColorIsGreen(){
-        board.putDisc(1);
+        int column = 1;
+        board.putDisc(column);
         Assert.assertEquals("G", board.getCurrentPlayer());
+    }
+
+    @Test
+    public void whenAskedForCurrentPlayerThenOutputNotice(){
+        board.getCurrentPlayer();
+        Assert.assertEquals("Player R turn", outputStream.toString());
+    }
+
+    @Test
+    public void whenADiscIsIntroducedTheBoardIsPrinted(){
+        int column = 1;
+        board.putDisc(column);
+
+        Assert.assertThat(outputStream.toString(), containsString("| |R| | | | | |"));
     }
 }

@@ -1,5 +1,7 @@
 package case2.connect4;
 
+import java.io.PrintStream;
+
 /**
  * Created by U0148394 on 10/13/2016.
  */
@@ -12,8 +14,10 @@ public class Board {
     private String[][] boards = new String[COLUMN][ROW];
     private int[] index = new int[COLUMN];
     private String currentPlayer = "R";
+    private PrintStream printStream = null;
 
-    public Board(){
+    public Board(PrintStream printStream){
+        this.printStream = printStream;
         for(int i = 0; i < COLUMN; i++){
             index[i] = 0;
         }
@@ -30,7 +34,25 @@ public class Board {
         checkColumn(column);
         boards[column][index[column]] = currentPlayer;
         switchPlayer();
-        return index[column]++;
+        index[column]++;
+        printBoard();
+        return index[column] - 1;
+    }
+
+    private void printBoard() {
+        StringBuilder sb = new StringBuilder("|");
+        for(int i = 0; i < ROW; i++){
+            for(int j = 0; j < COLUMN; j++){
+                if(index[j] > i){
+                    sb.append(boards[j][i]);
+                }else{
+                    sb.append(" ");
+                }
+                sb.append("|");
+            }
+            sb.append("\n");
+        }
+        printStream.println(sb.toString());
     }
 
     private void switchPlayer() {
@@ -60,6 +82,8 @@ public class Board {
     }
 
     public String getCurrentPlayer() {
+        printStream.printf("Player %s turn", currentPlayer);
         return currentPlayer;
     }
+
 }
