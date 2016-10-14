@@ -23,16 +23,16 @@ public class Board {
     }
 
     public int putDisc(int column) {
-
-        try {
-            boards[column][index[column]] = "O";
-        } catch (Exception e) {
-            throw new RuntimeException("out of boarder");
-
-        }
+        checkColumn(column);
+        boards[column][index[column]] = "O";
         return index[column]++;
     }
 
+    private void checkColumn(int column){
+        if(column < 0 || column > COLUMN || index[column] == ROW){
+            throw new RuntimeException("out of boarder");
+        }
+    }
     public String getDisc(int column) {
         return boards[column][0];
     }
