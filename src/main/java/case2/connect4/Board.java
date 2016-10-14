@@ -29,11 +29,11 @@ public class Board {
     public int putDisc(int column) {
         checkColumn(column);
         boards[column][index[column]] = currentPlayer;
-        turnPlayer();
+        switchPlayer();
         return index[column]++;
     }
 
-    private void turnPlayer() {
+    private void switchPlayer() {
         if(currentPlayer.equals(RED)){
             currentPlayer = GREEN;
         }
