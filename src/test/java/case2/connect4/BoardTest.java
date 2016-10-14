@@ -65,4 +65,15 @@ public class BoardTest {
         exception.expect(RuntimeException.class);
         board.putDisc(column);
     }
+
+    @Test
+    public void whenFirstPlayerPlaysThenColorIsRed(){
+        Assert.assertEquals("R", board.getCurrentPlayer());
+    }
+
+    @Test
+    public void whenSecondPlayerPlaysThenDiscColorIsGreen(){
+        board.putDisc(1);
+        Assert.assertEquals("G", board.getCurrentPlayer());
+    }
 }

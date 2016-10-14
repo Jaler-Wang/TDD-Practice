@@ -6,8 +6,12 @@ package case2.connect4;
 public class Board {
     private static final int COLUMN = 7;
     private static final int ROW = 6;
+    private static final String RED = "R";
+    private static final String GREEN = "G";
+
     private String[][] boards = new String[COLUMN][ROW];
     private int[] index = new int[COLUMN];
+    private String currentPlayer = "R";
 
     public Board(){
         for(int i = 0; i < COLUMN; i++){
@@ -24,8 +28,18 @@ public class Board {
 
     public int putDisc(int column) {
         checkColumn(column);
-        boards[column][index[column]] = "O";
+        boards[column][index[column]] = currentPlayer;
+        turnPlayer();
         return index[column]++;
+    }
+
+    private void turnPlayer() {
+        if(currentPlayer.equals(RED)){
+            currentPlayer = GREEN;
+        }
+        else{
+            currentPlayer = RED;
+        }
     }
 
     private void checkColumn(int column){
@@ -43,5 +57,9 @@ public class Board {
             totalDiscs += index[i];
         }
         return totalDiscs;
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
     }
 }
