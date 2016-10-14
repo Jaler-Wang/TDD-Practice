@@ -4,18 +4,33 @@ package case2.connect4;
  * Created by U0148394 on 10/13/2016.
  */
 public class Board {
-    private String[][] boards = new String[6][7];
+    private static final int COLUMN = 7;
+    private static final int ROW = 6;
+    private String[][] boards = new String[COLUMN][ROW];
+    private int[] index = new int[COLUMN];
 
+    public Board(){
+        for(int i = 0; i < COLUMN; i++){
+            index[i] = 0;
+        }
+    }
     public int getRow() {
-        return 6;
+        return ROW;
     }
 
     public int getColumn() {
-        return 7;
+        return COLUMN;
     }
 
-    public void putDisc(int column) {
-        boards[column][0] = "O";
+    public int putDisc(int column) {
+
+        try {
+            boards[column][index[column]] = "O";
+        } catch (Exception e) {
+            throw new RuntimeException("out of boarder");
+
+        }
+        return index[column]++;
     }
 
     public String getDisc(int column) {
@@ -23,6 +38,10 @@ public class Board {
     }
 
     public int getDiscNumber() {
-        return 0;
+        int totalDiscs = 0;
+        for(int i = 0; i < ROW; i++){
+            totalDiscs += index[i];
+        }
+        return totalDiscs;
     }
 }
