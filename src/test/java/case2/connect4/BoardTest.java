@@ -98,4 +98,36 @@ public class BoardTest {
 
         Assert.assertThat(outputStream.toString(), containsString("| |R| | | | | |"));
     }
+
+    @Test
+    public void whenTheGameStartsItIsNotFinished(){
+        Assert.assertFalse(board.isFinished());
+    }
+
+    @Test
+    public void whenTheBoardIsFullThenFinished(){
+        for(int i = 0; i < 7; i++){
+            for(int j = 0; j < 6; j++){
+                board.putDisc(i);
+            }
+        }
+        Assert.assertTrue(board.isFinished());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

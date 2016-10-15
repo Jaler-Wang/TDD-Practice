@@ -75,7 +75,7 @@ public class Board {
 
     public int getDiscNumber() {
         int totalDiscs = 0;
-        for(int i = 0; i < ROW; i++){
+        for(int i = 0; i < COLUMN; i++){
             totalDiscs += index[i];
         }
         return totalDiscs;
@@ -86,4 +86,7 @@ public class Board {
         return currentPlayer;
     }
 
+    public boolean isFinished() {
+        return getDiscNumber() == COLUMN * ROW;
+    }
 }
