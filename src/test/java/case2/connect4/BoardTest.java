@@ -153,7 +153,6 @@ public class BoardTest {
         for (int i = 0; i < location.length; i++) {
             board.putDisc(location[i]);
         }
-        System.out.println(outputStream.toString());
         Assert.assertEquals("R", board.getWinner());
     }
 }
