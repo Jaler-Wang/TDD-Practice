@@ -1,5 +1,9 @@
 package case3.mock;
 
+import case3.mock.mongo.TicTacToeCollection;
+
+import java.net.UnknownHostException;
+
 public class TicTacToe {
 
     private Character[][] board = {{'\0', '\0', '\0'}, {'\0', '\0', '\0'}, {'\0', '\0', '\0'}};
@@ -7,7 +11,11 @@ public class TicTacToe {
     private static final int SIZE = 3;
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
+    private TicTacToeCollection ticTacToeeCollection = null;
 
+    public TicTacToe() throws UnknownHostException {
+        ticTacToeeCollection = new TicTacToeCollection();
+    }
     public String play(int x, int y) {
         checkAxis(x);
         checkAxis(y);
@@ -73,4 +81,7 @@ public class TicTacToe {
         return true;
     }
 
+    public Object getTicTacToeeCollection() {
+        return ticTacToeeCollection;
+    }
 }

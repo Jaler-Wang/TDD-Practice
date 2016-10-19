@@ -1,9 +1,12 @@
 package case3.mock;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +17,7 @@ public class TicTacToeSpec {
     private TicTacToe ticTacToe;
 
     @Before
-    public final void before() {
+    public final void before() throws UnknownHostException {
         ticTacToe = new TicTacToe();
     }
 
@@ -108,6 +111,11 @@ public class TicTacToeSpec {
         ticTacToe.play(3, 3);
         String actual = ticTacToe.play(3, 2);
         assertEquals("The result is draw", actual);
+    }
+
+    @Test
+    public void whenInstantiatedThenSetCollection(){
+        Assert.assertNotNull(ticTacToe.getTicTacToeeCollection());
     }
 
 }
