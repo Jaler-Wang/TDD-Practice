@@ -1,5 +1,6 @@
 package case3.mock;
 
+import case3.mock.mongo.TicTacToeCollection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,16 +10,18 @@ import org.junit.rules.ExpectedException;
 import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class TicTacToeSpec {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
     private TicTacToe ticTacToe;
-
+    private TicTacToeCollection ticTacToeCollection = null;
     @Before
     public final void before() throws UnknownHostException {
-        ticTacToe = new TicTacToe();
+        ticTacToeCollection = mock(TicTacToeCollection.class);
+        ticTacToe = new TicTacToe(ticTacToeCollection);
     }
 
     @Test

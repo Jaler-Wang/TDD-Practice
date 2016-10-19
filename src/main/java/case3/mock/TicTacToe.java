@@ -14,7 +14,11 @@ public class TicTacToe {
     private TicTacToeCollection ticTacToeeCollection = null;
 
     public TicTacToe() throws UnknownHostException {
-        ticTacToeeCollection = new TicTacToeCollection();
+        new TicTacToe(new TicTacToeCollection());
+    }
+
+    public TicTacToe(TicTacToeCollection ticTacToeCollection){
+        this.ticTacToeeCollection = ticTacToeCollection;
     }
     public String play(int x, int y) {
         checkAxis(x);
