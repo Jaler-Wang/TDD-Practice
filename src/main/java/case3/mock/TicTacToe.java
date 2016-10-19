@@ -1,5 +1,6 @@
 package case3.mock;
 
+import case3.mock.bean.TicTacToeBean;
 import case3.mock.mongo.TicTacToeCollection;
 
 import java.net.UnknownHostException;
@@ -12,7 +13,7 @@ public class TicTacToe {
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
     private TicTacToeCollection ticTacToeeCollection = null;
-
+    private int turn = 1;
     public TicTacToe() throws UnknownHostException {
         new TicTacToe(new TicTacToeCollection());
     }
@@ -52,6 +53,9 @@ public class TicTacToe {
             throw new RuntimeException("Box is occupied");
         } else {
             board[x - 1][y - 1] = lastPlayer;
+            if(!ticTacToeeCollection.saveMove(new TicTacToeBean(turn++, x, y, lastPlayer))){
+                throw new RuntimeException("save fail");
+            }
         }
     }
 

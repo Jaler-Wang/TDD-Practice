@@ -8,11 +8,13 @@ public class TicTacToeBean {
     private int x;
     private int y;
 
-    public String getPlayer() {
+    private char player;
+
+    public char getPlayer() {
         return player;
     }
 
-    public void setPlayer(String player) {
+    public void setPlayer(char player) {
         this.player = player;
     }
 
@@ -40,12 +42,17 @@ public class TicTacToeBean {
         this.y = y;
     }
 
-    private String player;
-
-    public TicTacToeBean(int turn, int x, int y, String player) {
+    public TicTacToeBean(int turn, int x, int y, char player) {
         this.turn = turn;
         this.x = x;
         this.y = y;
         this.player = player;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        TicTacToeBean bean = (TicTacToeBean)obj;
+        return this.getX() == bean.getX() && this.getY() == bean.getY() &&
+                this.getTurn() == bean.getTurn() && this.getPlayer() == bean.getPlayer();
     }
 }

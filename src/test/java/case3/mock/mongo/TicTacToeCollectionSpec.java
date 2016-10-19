@@ -22,7 +22,7 @@ public class TicTacToeCollectionSpec {
     @Before
     public void init() throws UnknownHostException {
         ticTacToeCollection = Mockito.spy(new TicTacToeCollection());
-        ticTacToeBean = new TicTacToeBean(3,2,1,"Y");
+        ticTacToeBean = new TicTacToeBean(3,2,1,'Y');
         mongoCollection = Mockito.mock(MongoCollection.class);
     }
     @Test

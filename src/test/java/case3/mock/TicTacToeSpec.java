@@ -1,5 +1,6 @@
 package case3.mock;
 
+import case3.mock.bean.TicTacToeBean;
 import case3.mock.mongo.TicTacToeCollection;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,8 +10,8 @@ import org.junit.rules.ExpectedException;
 
 import java.net.UnknownHostException;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class TicTacToeSpec {
 
@@ -18,9 +19,11 @@ public class TicTacToeSpec {
     public ExpectedException exception = ExpectedException.none();
     private TicTacToe ticTacToe;
     private TicTacToeCollection ticTacToeCollection = null;
+
     @Before
     public final void before() throws UnknownHostException {
         ticTacToeCollection = mock(TicTacToeCollection.class);
+        doReturn(true).when(ticTacToeCollection).saveMove(any(TicTacToeBean.class));
         ticTacToe = new TicTacToe(ticTacToeCollection);
     }
 
@@ -117,8 +120,32 @@ public class TicTacToeSpec {
     }
 
     @Test
-    public void whenInstantiatedThenSetCollection(){
+    public void whenInstantiatedThenSetCollection() {
         Assert.assertNotNull(ticTacToe.getTicTacToeeCollection());
     }
 
+    @Test
+    public void whenPlayThenSaveMoveIsInvoked() {
+        TicTacToeBean bean = new TicTacToeBean(1, 1, 3, 'X');
+        ticTacToe.play(bean.getX(), bean.getY());
+        verify(ticTacToeCollection, times(1)).saveMove(bean);
+    }
+
+    @Test
+    public void whenPlayAndSaveReturnFalseThenThrowException() {
+        TicTacToeBean bean = new TicTacToeBean(2, 3, 3, 'X');
+        exception.expect(RuntimeException.class);
+        doReturn(false).when(ticTacToeCollection).saveMove(any(TicTacToeBean.class));
+        ticTacToe.play(bean.getX(), bean.getY());
+    }
+
+    @Test
+    public void whenPlayInvokeMultipleTimesThenReturnIncreases(){
+        TicTacToeBean move1 = new TicTacToeBean(1, 1,1,'X');
+        ticTacToe.play(move1.getX(), move1.getY());
+        verify(ticTacToeCollection, times(1)).saveMove(move1);
+        TicTacToeBean move2 = new TicTacToeBean(2, 2,2,'O');
+        ticTacToe.play(move2.getX(), move2.getY());
+        verify(ticTacToeCollection, times(1)).saveMove(move2);
+    }
 }
